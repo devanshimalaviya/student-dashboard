@@ -33,7 +33,11 @@ function renderTasks() {
             <span onclick="toggleTask(${index})">
                 ${task.done ? "✅" : "⬜"} ${task.text}
             </span>
-            <button onclick="deleteTask(${index})">❌</button>
+
+            <div>
+                <button onclick="editTask(${index})">✏️</button>
+                <button onclick="deleteTask(${index})">❌</button>
+            </div>
         `;
 
         list.appendChild(li);
@@ -42,14 +46,32 @@ function renderTasks() {
     updateProgress();
 }
 
-// Toggle
+// Toggle Task
 function toggleTask(index) {
     tasks[index].done = !tasks[index].done;
     saveData();
     renderTasks();
 }
 
-// Delete
+// Edit Task
+function editTask(index) {
+    let newText = prompt("Edit your task:", tasks[index].text);
+
+    if (newText === null) return;
+
+    newText = newText.trim();
+
+    if (newText === "") {
+        alert("Task cannot be empty!");
+        return;
+    }
+
+    tasks[index].text = newText;
+    saveData();
+    renderTasks();
+}
+
+// Delete Task
 function deleteTask(index) {
     tasks.splice(index, 1);
     saveData();
@@ -71,7 +93,7 @@ function setFilter(type) {
     renderTasks();
 }
 
-// Save
+// Save Data
 function saveData() {
     localStorage.setItem("tasks", JSON.stringify(tasks));
 }
@@ -104,5 +126,5 @@ function toggleMode() {
     document.body.classList.toggle("dark");
 }
 
-// Initial Load
+// Load
 renderTasks();
