@@ -28,7 +28,6 @@ h1 {
     grid-column: 1 / -1;
 }
 
-/* Cards */
 .card {
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(12px);
@@ -36,14 +35,12 @@ h1 {
     border-radius: 15px;
     box-shadow: 0 10px 25px rgba(0,0,0,0.3);
     transition: 0.3s;
-    animation: fadeIn 0.5s ease;
 }
 
 .card:hover {
     transform: translateY(-8px) scale(1.02);
 }
 
-/* Input */
 .input-box {
     display: flex;
     gap: 8px;
@@ -58,7 +55,6 @@ input {
     outline: none;
 }
 
-/* Buttons */
 button {
     padding: 10px 15px;
     border: none;
@@ -67,15 +63,12 @@ button {
     background: linear-gradient(45deg, #ff7eb3, #ff758c);
     color: white;
     font-weight: bold;
-    transition: 0.3s;
 }
 
 button:hover {
     transform: scale(1.05);
-    opacity: 0.9;
 }
 
-/* Task List */
 li {
     display: flex;
     justify-content: space-between;
@@ -84,19 +77,21 @@ li {
     background: rgba(255,255,255,0.2);
     padding: 10px;
     border-radius: 10px;
-    animation: slideUp 0.3s ease;
 }
 
 li span {
     cursor: pointer;
 }
 
-li button {
-    background: #ff4d4d;
-    padding: 5px 10px;
+li div {
+    display: flex;
+    gap: 5px;
 }
 
-/* Search */
+li div button {
+    padding: 5px 8px;
+}
+
 #searchInput {
     margin-top: 10px;
     padding: 8px;
@@ -105,7 +100,6 @@ li button {
     border: none;
 }
 
-/* Filters */
 .filters {
     margin-top: 10px;
     display: flex;
@@ -117,7 +111,6 @@ li button {
     background: #444;
 }
 
-/* Progress */
 .progress-bar {
     background: rgba(255,255,255,0.2);
     border-radius: 10px;
@@ -133,19 +126,16 @@ li button {
     transition: width 0.4s ease;
 }
 
-/* Clear Button */
 .clear-btn {
     margin-top: 10px;
     background: #ff3333;
 }
 
-/* Toggle */
 .toggle-btn {
     grid-column: 1 / -1;
     justify-self: center;
 }
 
-/* Dark Mode */
 .dark {
     background: #0f0f0f;
 }
@@ -156,22 +146,4 @@ li button {
 
 .dark button {
     background: #333;
-}
-
-/* Animations */
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(15px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes slideUp {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-/* Mobile */
-@media (max-width: 600px) {
-    h1 {
-        font-size: 1.5rem;
-    }
 }
