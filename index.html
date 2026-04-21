@@ -3,25 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Dashboard</title>
+    <title>Student Dashboard Pro</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div class="container">
+<div class="dashboard">
 
-        <h1>📊 My Dashboard</h1>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h2>📊 Dashboard</h2>
+        <ul>
+            <li>🏠 Home</li>
+            <li>📝 Tasks</li>
+            <li>📈 Progress</li>
+        </ul>
+    </div>
 
-        <!-- To-Do -->
+    <!-- Main Content -->
+    <div class="main">
+
+        <h1>Student Productivity</h1>
+
+        <!-- To-do -->
         <div class="card">
             <h2>To-Do List</h2>
 
             <div class="input-box">
                 <input type="text" id="taskInput" placeholder="Enter task">
+                <input type="date" id="deadlineInput">
                 <button onclick="addTask()">Add</button>
             </div>
 
-            <input type="text" id="searchInput" placeholder="Search task..." onkeyup="renderTasks()">
+            <input type="text" id="searchInput" placeholder="Search..." onkeyup="renderTasks()">
 
             <div class="filters">
                 <button onclick="setFilter('all')">All</button>
@@ -49,11 +63,9 @@
             <p id="quote"></p>
         </div>
 
-        <!-- Dark Mode -->
-        <button class="toggle-btn" onclick="toggleMode()">🌙 Toggle Mode</button>
-
     </div>
+</div>
 
-    <script src="script.js"></script>
+<script src="script.js"></script>
 </body>
-</html> 
+</html>
