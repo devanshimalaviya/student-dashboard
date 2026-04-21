@@ -1,17 +1,29 @@
 let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
 let filter = "all";
 
-// Add Task
+// ENTER key support
+document.getElementById("taskInput").addEventListener("keypress", function(e) {
+    if (e.key === "Enter") {
+        addTask();
+    }
+});
+
+// Add Task (with deadline)
 function addTask() {
     let input = document.getElementById("taskInput");
+    let deadlineInput = document.getElementById("deadlineInput");
+
     let text = input.value.trim();
+    let deadline = deadlineInput.value;
 
     if (text === "") return;
 
-    tasks.push({ text: text, done: false });
+    tasks.push({ text: text, done: false, deadline: deadline });
     saveData();
     renderTasks();
+
     input.value = "";
+    deadlineInput.value = "";
 }
 
 // Render Tasks
@@ -29,9 +41,17 @@ function renderTasks() {
 
         let li = document.createElement("li");
 
+        // Deadline logic
+        let today = new Date().toISOString().split("T")[0];
+        let isOverdue = task.deadline && task.deadline < today && !task.done;
+
+        li.style.background = isOverdue ? "rgba(255,0,0,0.4)" : "";
+
         li.innerHTML = `
             <span onclick="toggleTask(${index})">
                 ${task.done ? "✅" : "⬜"} ${task.text}
+                <br>
+                <small>${task.deadline ? "Due: " + task.deadline : ""}</small>
             </span>
 
             <div>
@@ -46,59 +66,24 @@ function renderTasks() {
     updateProgress();
 }
 
-// Toggle Task
+// बाकी functions same (toggle, delete, etc.)
+
 function toggleTask(index) {
     tasks[index].done = !tasks[index].done;
     saveData();
     renderTasks();
 }
 
-// Edit Task
-function editTask(index) {
-    let newText = prompt("Edit your task:", tasks[index].text);
-
-    if (newText === null) return;
-
-    newText = newText.trim();
-
-    if (newText === "") {
-        alert("Task cannot be empty!");
-        return;
-    }
-
-    tasks[index].text = newText;
-    saveData();
-    renderTasks();
-}
-
-// Delete Task
 function deleteTask(index) {
     tasks.splice(index, 1);
     saveData();
     renderTasks();
 }
 
-// Clear All
-function clearAll() {
-    if (confirm("Delete all tasks?")) {
-        tasks = [];
-        saveData();
-        renderTasks();
-    }
-}
-
-// Filter
-function setFilter(type) {
-    filter = type;
-    renderTasks();
-}
-
-// Save Data
 function saveData() {
     localStorage.setItem("tasks", JSON.stringify(tasks));
 }
 
-// Progress
 function updateProgress() {
     let total = tasks.length;
     let completed = tasks.filter(t => t.done).length;
@@ -109,22 +94,4 @@ function updateProgress() {
     document.getElementById("progressText").textContent = percent + "% completed";
 }
 
-// Quotes
-const quotes = [
-    "Push yourself 🔥",
-    "Stay consistent 💪",
-    "Discipline beats motivation",
-    "Small steps daily = big results",
-    "You are building your future"
-];
-
-document.getElementById("quote").textContent =
-    quotes[Math.floor(Math.random() * quotes.length)];
-
-// Dark Mode
-function toggleMode() {
-    document.body.classList.toggle("dark");
-}
-
-// Load
 renderTasks();
